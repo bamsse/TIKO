@@ -1,12 +1,12 @@
 import java.sql.*;
 import java.util.scanner;
 
-public class TIKO{
+public class Tiko{
 	private static final String AJURI = "org.postgresql.Driver";
 	private static final String PROTOKOLLA = "jdbc:postgresql:";
 	private static final String PALVELIN = "dbstud.sis.uta.fi";
 	private static final int PORTTI = 5432;
-	private static final String TIETOKANTA = "";	// tähän oma käyttäjätunnus
+	private static final String TIETOKANTA = "tiko2014db29";	// tähän oma käyttäjätunnus
 	private static final String KAYTTAJA = "";	// tähän oma käyttäjätunnus
 	private static final String SALASANA = "";	// tähän tietokannan salasana
 	private static Scanner sc = new Scanner(System.in);
@@ -46,7 +46,7 @@ public class TIKO{
 				ResultSet tunnusTarkitusRS = tunnusTarkistusPS.executeQuery();
 				tunnusTarkitusRS.next();
 
-				if(rs.getInt(0) == 0){
+				if(tunnusTarkitusRS.getInt(1) == 0){
 					System.out.println("Käyttäjätunnusta ei löytynyt. Yritä uudelleen.");
 
 				}else{
@@ -55,9 +55,9 @@ public class TIKO{
 
 					//opiskelija (1), opettaja(2) vai ylläpitäjä(3)
 					oikeudetTarkistusPS.setInt(1, kayttajatunnus);
-					ResultSet oikeudetTarkitusRS = tunnusTarkistusPS.executeQuery();
+					ResultSet oikeudetTarkitusRS = oikeudetTarkistusPS.executeQuery();
 					oikeudetTarkitusRS.next();
-					int oikeudet = rs.getInt(0);
+					int oikeudet = oikeudetTarkitusRS.getInt(1);
 
 					boolean valintaOK = false;
 
